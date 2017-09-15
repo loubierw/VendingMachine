@@ -47,12 +47,21 @@ namespace VendingMachine
         /// <summary>
         /// Prompt asking user to make a selection
         /// </summary>
-        private const string SELECTION_STRING = "Please make a selection";
+        public const string SELECTION_STRING = "Please make a selection";
 
         /// <summary>
         /// Prompt asking user to insert money
         /// </summary>
-        private const string MONEY_STRING = "Please insert money";
+        public const string MONEY_STRING = "Please insert money";
+
+        /// <summary>
+        /// Initial prompt to user
+        /// </summary>
+        public const string INITIAL_MESSAGE = "Welcome to the extremely limited vending machine!\n" +
+            "Here are your options:\n" +
+            "Chips for $1.00 - Option 1\n" +
+            "Soda for $1.50 - Option 2\n" +
+            "Candy for $0.75 - Option 3";
 
         /// <summary>
         /// Default constructor
@@ -103,13 +112,7 @@ namespace VendingMachine
         /// </summary>
         public void InteractWithUser()
         {
-            string initalMessage = "Welcome to the extremely limited vending machine!\n" +
-                "Here are your options:\n" +
-                "Chips for $1.00 - Option 1\n" +
-                "Soda for $1.50 - Option 2\n" +
-                "Candy for $0.75 - Option 3";
-
-            DisplayToUser(initalMessage);
+            DisplayToUser(INITIAL_MESSAGE);
 
             RequestMoney();
             RequestSelection();
@@ -151,7 +154,7 @@ namespace VendingMachine
             }
 
             DisplayToUser("Have a good day!");
-            Console.ReadLine();
+            GetUserInput();
         }
 
         /// <summary>
@@ -162,7 +165,7 @@ namespace VendingMachine
             DisplayToUser(MONEY_STRING);
 
             double money;
-            if (!double.TryParse(Console.ReadLine(), out money))
+            if (!double.TryParse(GetUserInput(), out money))
             {
                 RequestMoney();
             }
@@ -186,7 +189,7 @@ namespace VendingMachine
             DisplayToUser(SELECTION_STRING);
 
             int choice;
-            if (!int.TryParse(Console.ReadLine(), out choice))
+            if (!int.TryParse(GetUserInput(), out choice))
             {
                 RequestSelection();
             }
@@ -197,9 +200,18 @@ namespace VendingMachine
         /// Displays message to user via the console
         /// </summary>
         /// <param name="message">The message to display</param>
-        private void DisplayToUser(string message)
+        public virtual void DisplayToUser(string message)
         {
             Console.WriteLine(message);
+        }
+
+        /// <summary>
+        /// Returns user inputs from console
+        /// </summary>
+        /// <returns>User input</returns>
+        public virtual string GetUserInput()
+        {
+            return Console.ReadLine();
         }
     }
 }
