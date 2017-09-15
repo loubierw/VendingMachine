@@ -47,12 +47,12 @@ namespace VendingMachine
         /// <summary>
         /// Prompt asking user to make a selection
         /// </summary>
-        private const string SELECTION_STRING = "Please make a selection";
+        public const string SELECTION_STRING = "Please make a selection";
 
         /// <summary>
         /// Prompt asking user to insert money
         /// </summary>
-        private const string MONEY_STRING = "Please insert money";
+        public const string MONEY_STRING = "Please insert money";
 
         /// <summary>
         /// Default constructor
@@ -151,7 +151,7 @@ namespace VendingMachine
             }
 
             DisplayToUser("Have a good day!");
-            Console.ReadLine();
+            GetUserInput();
         }
 
         /// <summary>
@@ -162,7 +162,7 @@ namespace VendingMachine
             DisplayToUser(MONEY_STRING);
 
             double money;
-            if (!double.TryParse(Console.ReadLine(), out money))
+            if (!double.TryParse(GetUserInput(), out money))
             {
                 RequestMoney();
             }
@@ -186,7 +186,7 @@ namespace VendingMachine
             DisplayToUser(SELECTION_STRING);
 
             int choice;
-            if (!int.TryParse(Console.ReadLine(), out choice))
+            if (!int.TryParse(GetUserInput(), out choice))
             {
                 RequestSelection();
             }
@@ -197,9 +197,18 @@ namespace VendingMachine
         /// Displays message to user via the console
         /// </summary>
         /// <param name="message">The message to display</param>
-        private void DisplayToUser(string message)
+        public virtual void DisplayToUser(string message)
         {
             Console.WriteLine(message);
+        }
+
+        /// <summary>
+        /// Returns user inputs from console
+        /// </summary>
+        /// <returns>User input</returns>
+        public virtual string GetUserInput()
+        {
+            return Console.ReadLine();
         }
     }
 }
