@@ -107,6 +107,7 @@ namespace VendingMachineTests
             vendingMachine.InteractWithUser();
 
             expectedOutputs.Add(VendingMachine.VendingMachine.INITIAL_MESSAGE);
+
             AddMoneyString(expectedOutputs);
             AddMoneyString(expectedOutputs);
 
